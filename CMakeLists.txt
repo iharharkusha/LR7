@@ -32,6 +32,8 @@ set(SRCS
     Task_1/src/logic.cpp
     Task_2/src/task2.cpp
     Task_2/src/logic.cpp
+    Task_3/src/task3.cpp
+    Task_3/src/logic.cpp
     general/src/utils.cpp
 )
 

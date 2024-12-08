@@ -22,10 +22,18 @@ void ConvertBothToEqualSizes(string& big_string, string& small_string, unsigned 
 
 void CallConvertBothToEqualSizes(string& bit_sequence1, unsigned int size1, string& bit_sequence2, unsigned int size2) {
     unsigned int sizes_difference;
-    if (size1 > size2) sizes_difference = size1 - size2;
-    else if (size1 < size2) sizes_difference = size2 - size1;
-    else sizes_difference = 0;
-    ConvertBothToEqualSizes(bit_sequence1, bit_sequence2, sizes_difference);
+    if (size1 > size2) {
+        sizes_difference = size1 - size2;
+        ConvertBothToEqualSizes(bit_sequence1, bit_sequence2, sizes_difference);
+    }
+    else if (size1 < size2) {
+        sizes_difference = size2 - size1;
+        ConvertBothToEqualSizes(bit_sequence2, bit_sequence1, sizes_difference);
+    }
+    else {
+        sizes_difference = 0;
+        ConvertBothToEqualSizes(bit_sequence1, bit_sequence2, sizes_difference);
+    }
 };
 
 void ForwardModifiedToAdditionalModified(string& bit_sequence, unsigned int size, unsigned int indx = 2) {

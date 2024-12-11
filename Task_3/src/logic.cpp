@@ -7,7 +7,7 @@ using std::string;
 
 void GenerateEncodingForChosenNumberSystem(const unsigned int base, string*& encoding) {
     //заполняем массив строк переданный по ссылке
-    for (unsigned int i = 0; i < base; ++i) {
+    for (unsigned int i = 0; i < base; ++i) {  // O(n)
         encoding[i] = string(1, alphabet[i % alphabetSize]) + string(1, digits[i / alphabetSize]);
     }   
 }
@@ -22,12 +22,12 @@ string ConvertToChosenNumberSystem(const string& number, const unsigned int base
     string res;
     string curr = s;
 
-    while (curr != "0") {
+    while (curr != "0") {  // O(n)
         int remainder = 0;
         string next = "";
         bool leadingZero = true;
 
-        for (char digit : curr) {
+        for (char digit : curr) {  // O(m), где m - длина текущего числа 
             int curr_digit = remainder * 10 + (digit - '0');
             int quotient = curr_digit / base;
             remainder = curr_digit % base;
@@ -42,7 +42,7 @@ string ConvertToChosenNumberSystem(const string& number, const unsigned int base
         res = encoding[remainder] + res;
     }
 
-    return res;
+    return res;  
 }
 
 unsigned int TransformToInteger(char unit1, char unit2) {
@@ -53,7 +53,7 @@ unsigned int ConvertFromEncodingToInteger(string& number, const unsigned int bas
     const unsigned int size = number.size();
     
     unsigned int total = 0; 
-    for (int i = size - 1, mult = 0; i >= 0; i -= 2, ++mult) {
+    for (int i = size - 1, mult = 0; i >= 0; i -= 2, ++mult) {  // O(n)
         total += TransformToInteger(number[i - 1], number[i]) * pow(base, mult);
     }
 
@@ -72,16 +72,16 @@ string addNumbers(const string& num1, const string& num2, int base, string*& enc
     int size_difference = abs(size1 - size2);
 
     if (a.size() > b.size()) {
-        for (unsigned int i = size_difference; i > 0; --i) {
+        for (unsigned int i = size_difference; i > 0; --i) {  // O(n)
             b = add + b;
         }
-    } else if (a.size() < b.size()) {
-        for (unsigned int i = size_difference; i > 0; --i) {
+    } else if (a.size() < b.size()) {  
+        for (unsigned int i = size_difference; i > 0; --i) { // O(n)
             a = add + a;
         }
     }
 
-    for (int i = a.size() - 1; i >= 0; i -= 2) {
+    for (int i = a.size() - 1; i >= 0; i -= 2) {  // O(n)
         int sum = TransformToInteger(a[i - 1], a[i]) + TransformToInteger(b[i - 1], b[i]) + carry;
         carry = sum / base; 
         
@@ -89,7 +89,7 @@ string addNumbers(const string& num1, const string& num2, int base, string*& enc
     }
 
     // Добавление переноса, если он остался
-    if (carry > 0)  result = ConvertToChosenNumberSystem(std::to_string(carry), base, encoding) + result; 
+    if (carry > 0) result = ConvertToChosenNumberSystem(std::to_string(carry), base, encoding) + result; 
 
     return result;
 }
@@ -124,8 +124,8 @@ string proccessOperation(string& num1, string& num2, string*& encoding, const un
     bool isNegative1 = (num1[0] == '-');
     bool isNegative2 = (num2[0] == '-');
 
-    string absNum1 = isNegative1 ? num1.substr(1) : num1;
-    string absNum2 = isNegative2 ? num2.substr(1) : num2;
+    string absNum1 = isNegative1 ? num1.substr(1) : num1;  // O(n)
+    string absNum2 = isNegative2 ? num2.substr(1) : num2;  // O(n)
 
     if (isAddition) {
         if (isNegative1 == isNegative2) {

@@ -9,7 +9,7 @@ using std::string;
 
 void task3() {
     std::cout << "Задание 3. Произвести сложение или вычитание двух чисел в заданной системе вычисления.\n";
-    while (true) {
+    while (true) {  // Потенциально O(m), где m - количество итераций
         std::cout << "Введите 1 для запуска программы, 0 для ее завершения:\n";
         int type = readIntegerInLine();
         if (type != 1 && type != 0) {
@@ -20,9 +20,9 @@ void task3() {
             break;
         }
         string number1;
-        while (true) {
+        while (true) {  // Потенциально O(k), где k - количество итераций для корректного ввода
           std::cout << "Введите первое число число:\n";
-          number1 = readIntStringInLine();
+          number1 = readIntStringInLine();  // O(p), где p - длина строки ввода
           if (number1 == INFSTRING) {
             std::cout << "Некорректный ввод\n";
             continue;
@@ -30,9 +30,9 @@ void task3() {
           break;
         }
         string number2;
-        while (true) {
+        while (true) {  // Потенциально O(k), где k - количество итераций для корректного ввода
           std::cout << "Введите второе число число:\n";
-          number2 = readIntStringInLine();
+          number2 = readIntStringInLine();  // O(p), где p - длина строки ввода
           if (number2 == INFSTRING) {
             std::cout << "Некорректный ввод\n";
             continue;
@@ -40,7 +40,7 @@ void task3() {
           break;
         }
         int base;
-        while (true) {
+        while (true) {  // Потенциально O(k), где k - количество итераций для корректного ввода
             std::cout << "Введите систему счисления (от 2 до 260):\n";
             base = readIntegerInLine();
             if (base == -INF) {
@@ -76,13 +76,13 @@ void task3() {
         }*/
 
         bool isNegative1 = number1[0] == '-' ? true : false;
-        number1 = isNegative1 ? number1.substr(1) : number1;
+        number1 = isNegative1 ? number1.substr(1) : number1; // O(n)
         number1 = ConvertToChosenNumberSystem(number1, base, encoding);
-        if (isNegative1) number1 = "-" + number1;
+        if (isNegative1) number1 = "-" + number1;  
         std::cout << '\n' << "Первое число, представленное в выбранной системе счисления: " << number1 << '\n';
 
         bool isNegative2 = number2[0] == '-' ? true : false;
-        number2 = isNegative2 ? number2.substr(1) : number2;
+        number2 = isNegative2 ? number2.substr(1) : number2;  // O(n)
         number2 = ConvertToChosenNumberSystem(number2, base, encoding);
         if (isNegative2) number2 = "-" + number2;
         std::cout << "Второе число: " << number2 << '\n'; 
@@ -90,7 +90,7 @@ void task3() {
         if (operation == 1) {
             string c = proccessOperation(number1, number2, encoding, base, true);
             bool isNegative3 = c[0] == '-' ? true : false; 
-            c = isNegative3 ? c.substr(1) : c;
+            c = isNegative3 ? c.substr(1) : c;  // O(n)
             
             if (isNegative3) {
                 std::cout << "Сложение двух чисел:\n" << '-' <<  c << '\n';

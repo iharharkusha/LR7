@@ -21,7 +21,7 @@ void task5() {
             break;
         }
         int n;
-        while (true) {
+        while (true) {  // Потенциально O(m), где m - количество итераций
             std::cout << "Введите номер бочки, которую желаете отравить:\n";
             n = readIntegerInLine();
             if (n == -INF) {
